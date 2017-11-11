@@ -23,14 +23,6 @@ then
   dub template "/opt/zookeeper/tools/templates/myid.template" "/var/lib/zookeeper/data/myid"
 fi
 
-if [[ -n "${KAFKA_JMX_OPTS-}" ]]
-then
-  if [[ ! $KAFKA_JMX_OPTS == *"com.sun.management.jmxremote.rmi.port"*  ]]
-  then
-    echo "KAFKA_OPTS should contain 'com.sun.management.jmxremote.rmi.port' property. It is required for accessing the JMX metrics externally."
-  fi
-fi
-
 echo "===> Writing java.env ..."
 dub template "/opt/zookeeper/tools/templates/java.env.template" "/opt/zookeeper/conf/java.env"
 
