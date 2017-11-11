@@ -72,7 +72,7 @@ For more information, check the [Apache ZooKeeper's Official Documentation].
 
    [Apache ZooKeeper]: <https://zookeeper.apache.org/>   
    [Apache ZooKeeper's Official Documentation]: <http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html>
-   [onfiguration options from the official documentation]: <http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration>
+   [configuration options from the official documentation]: <http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration>
    [Oracle JDK]: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
    [ZooKeeper]: <https://zookeeper.apache.org/>   
    [3.4.10/Dockerfile]: <https://github.com/MihaiBogdanEugen/docker-zookeeper/blob/master/3.4.10/Dockerfile>
