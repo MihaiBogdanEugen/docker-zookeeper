@@ -12,10 +12,7 @@ echo "===> User"
 id
 
 echo "===> Configuring ..."
-/opt/zookeeper/tools/configure
-
-echo "===> Running preflight checks ... "
-/opt/zookeeper/tools/ensure
+/opt/zookeeper/tools/configure.sh
 
 echo "===> Launching ... "
-exec /opt/zookeeper/tools/launch
+exec /opt/zookeeper/tools/launch.sh

@@ -1,11 +1,11 @@
-FROM mbe1224/debian-oracle-java:jessie-slim-jdk8
+FROM mbe1224/debian-oracle-java:stretch-slim-jdk8
 
 ENV LANG="C.UTF-8" \
     ZOOKEEPER_DATA_DIR="/var/lib/zookeeper/data" \
     ZOOKEEPER_DATA_LOG_DIR="/var/lib/zookeeper/log" \
     ZOOKEEPER_LOG_DIR="/var/log/zookeeper"
 
-ARG PYTHON_VERSION=2.7.9-1
+ARG PYTHON_VERSION=2.7.13-2
 ARG PYTHON_PIP_VERSION=9.0.1
 ARG ZOOKEEPER_DIST=zookeeper-3.4.10
 ARG ZOOKEEPER_SHA256_SUM=7f7f5414e044ac11fee2a1e0bc225469f51fb0cdf821e67df762a43098223f27
@@ -58,19 +58,11 @@ RUN echo "===> Updating debian ....." && \
     ln -s /opt/zookeeper/$ZOOKEEPER_DIST.jar /usr/share/zookeeper/ && \
     ln -s /opt/zookeeper/lib/* /usr/share/zookeeper
 
-COPY "/include/opt/zookeeper/bin/"*.sh /opt/zookeeper/bin/
 COPY "/include/opt/zookeeper/tools/templates/"*.template /opt/zookeeper/tools/templates/
-COPY /include/opt/zookeeper/tools/configure.sh /opt/zookeeper/tools/configure
-COPY /include/opt/zookeeper/tools/ensure.sh /opt/zookeeper/tools/ensure
-COPY /include/opt/zookeeper/tools/launch.sh /opt/zookeeper/tools/launch
-COPY /include/opt/zookeeper/tools/run.sh /opt/zookeeper/tools/run
+COPY "/include/opt/zookeeper/tools/"*.sh /opt/zookeeper/tools/
 COPY /include/usr/local/bin/dub.py /usr/local/bin/dub
 
-RUN chmod a+x "/opt/zookeeper/tools/configure"
-RUN chmod a+x "/opt/zookeeper/tools/ensure"
-RUN chmod a+x "/opt/zookeeper/tools/launch"
-RUN chmod a+x "/opt/zookeeper/tools/run"
-RUN chmod a+x "/opt/zookeeper/bin/"*.sh
-RUN chmod a+x "usr/local/bin/dub"
+RUN chmod a+x "/opt/zookeeper/tools/"*.sh && \
+    chmod a+x "usr/local/bin/dub"
 
-CMD ["/opt/zookeeper/tools/run"]
+CMD ["/opt/zookeeper/tools/run.sh"]
