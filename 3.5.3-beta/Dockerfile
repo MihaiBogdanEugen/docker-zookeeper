@@ -6,8 +6,8 @@ ENV LANG="C.UTF-8" \
 
 ARG PYTHON_VERSION=2.7.13-2
 ARG PYTHON_PIP_VERSION=9.0.1
-ARG ZOOKEEPER_DIST=zookeeper-3.4.10
-ARG ZOOKEEPER_SHA256_SUM=7f7f5414e044ac11fee2a1e0bc225469f51fb0cdf821e67df762a43098223f27
+ARG ZOOKEEPER_DIST=zookeeper-3.5.3-beta
+ARG ZOOKEEPER_SHA256_SUM=ff236bc10ac1fde0f8425debe38e690a952587941a5a334f9e5bd0480c204fe5
 
 EXPOSE 2181 2888 3888
 
@@ -20,11 +20,11 @@ RUN echo "===> Updating debian ....." && \
     pip install --no-cache-dir --upgrade pip==${PYTHON_PIP_VERSION} && \
     pip install --no-cache-dir jinja2 requests && \
     echo "===> Downloading zookeeper ..."  && \
-    wget -q "http://www.apache.org/dist/zookeeper/$ZOOKEEPER_DIST/$ZOOKEEPER_DIST.tar.gz" && \
+    wget -q "http://www.apache.org/dist/zookeeper/${ZOOKEEPER_DIST}/${ZOOKEEPER_DIST}.tar.gz" && \
     echo "===> Verifying zookeeper ..."  && \
     echo "${ZOOKEEPER_SHA256_SUM}" "$ZOOKEEPER_DIST.tar.gz" | sha256sum -c - && \
     echo "===> Unpacking zookeeper ..."  && \
-    tar -xzf "$ZOOKEEPER_DIST.tar.gz" -C /opt && \
+    tar -xvf "$ZOOKEEPER_DIST.tar.gz" -C /opt && \
     rm -r "$ZOOKEEPER_DIST.tar.gz" && \
     echo "===> Shortcut created for install folder ..."  && \
     ln -s /opt/$ZOOKEEPER_DIST /opt/zookeeper && \

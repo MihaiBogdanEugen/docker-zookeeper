@@ -1,15 +1,12 @@
-
 clientPort={{ env['ZOOKEEPER_CLIENT_PORT'] }}
 dataDir={{ env['ZOOKEEPER_DATA_DIR'] }}
-dataLogDir={{ env['ZOOKEEPER_DATA_LOG_DIR'] }}
+tickTime={{ env['ZOOKEEPER_TICK_TIME'] }}
 
-{# optional properties #}
-{% set other_props = {
-  'ZOOKEEPER_TICK_TIME': 'tickTime',
+{% set zk_properties = {
+  'ZOOKEEPER_DATA_LOG_DIR': 'dataLogDir',
   'ZOOKEEPER_GLOBAL_OUTSTANDING_LIMIT' : 'globalOutstandingLimit',
   'ZOOKEEPER_PRE_ALLOC_SIZE': 'preAllocSize',
   'ZOOKEEPER_SNAP_COUNT': 'snapCount',
-  'ZOOKEEPER_TRACE_FILE': 'traceFile',
   'ZOOKEEPER_MAX_CLIENT_CNXNS' : 'maxClientCnxns',
   'ZOOKEEPER_CLIENT_PORT_ADDRESS' : 'clientPortAddress',
   'ZOOKEEPER_MIN_SESSION_TIMEOUT' : 'minSessionTimeout',
@@ -19,7 +16,7 @@ dataLogDir={{ env['ZOOKEEPER_DATA_LOG_DIR'] }}
   'ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL': 'autopurge.purgeInterval',
   'ZOOKEEPER_SYNC_ENABLED': 'syncEnabled',
   'ZOOKEEPER_ELECTION_ALG' : 'electionAlg',
-  'ZOOKEEPER_INIT_LIMIT': 'initLimit',
+  'ZOOKEEPER_INIT_LIMIT': 'initLimit',  
   'ZOOKEEPER_LEADER_SERVES': 'leaderServes',
   'ZOOKEEPER_SYNC_LIMIT' : 'syncLimit',
   'ZOOKEEPER_CNX_TIMEOUT': 'cnxTimeout',
@@ -29,7 +26,7 @@ dataLogDir={{ env['ZOOKEEPER_DATA_LOG_DIR'] }}
   'ZOOKEEPER_QUORUM_LISTEN_ON_ALL_IPS': 'quorumListenOnAllIPs'
  } -%}
 
-{% for k, property in other_props.iteritems() -%}
+{% for k, property in zk_properties.iteritems() -%}
 {% if env.get(k) != None -%}
 {{property}}={{env[k]}}
 {% endif -%}
