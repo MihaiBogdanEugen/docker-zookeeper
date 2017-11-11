@@ -2,8 +2,7 @@ FROM mbe1224/debian-oracle-java:stretch-slim-jdk8
 
 ENV LANG="C.UTF-8" \
     ZOOKEEPER_DATA_DIR="/var/lib/zookeeper/data" \
-    ZOOKEEPER_DATA_LOG_DIR="/var/lib/zookeeper/log" \
-    ZOOKEEPER_LOG_DIR="/var/log/zookeeper"
+    ZOOKEEPER_DATA_LOG_DIR="/var/lib/zookeeper/log"
 
 ARG PYTHON_VERSION=2.7.13-2
 ARG PYTHON_PIP_VERSION=9.0.1
@@ -52,7 +51,7 @@ RUN echo "===> Updating debian ....." && \
             "/opt/zookeeper/$ZOOKEEPER_DIST.jar.sha1" && \
     apt-get autoremove -y wget && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p $ZOOKEEPER_DATA_DIR $ZOOKEEPER_DATA_LOG_DIR $ZOOKEEPER_LOG_DIR /usr/share/zookeeper /tmp/zookeeper /usr/etc/ /opt/zookeeper/tools /opt/zookeeper/tools/templates && \
+    mkdir -p $ZOOKEEPER_DATA_DIR $ZOOKEEPER_DATA_LOG_DIR /usr/share/zookeeper /tmp/zookeeper /usr/etc/ /opt/zookeeper/tools /opt/zookeeper/tools/templates && \
     ln -s /opt/zookeeper/conf/ /usr/etc/zookeeper && \
     ln -s /opt/zookeeper/bin/* /usr/bin && \
     ln -s /opt/zookeeper/$ZOOKEEPER_DIST.jar /usr/share/zookeeper/ && \

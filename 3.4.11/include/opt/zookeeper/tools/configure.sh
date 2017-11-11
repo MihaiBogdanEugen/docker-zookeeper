@@ -8,7 +8,7 @@ set -o nounset \
 export ZOOKEEPER_TICK_TIME=${ZOOKEEPER_TICK_TIME:-"2000"}                     
 export ZOOKEEPER_MIN_SESSION_TIMEOUT=${ZOOKEEPER_MIN_SESSION_TIMEOUT:-"4000"}
 export ZOOKEEPER_MAX_SESSION_TIMEOUT=${ZOOKEEPER_MAX_SESSION_TIMEOUT:-"40000"}
-export ZOOKEEPER_HEAP_SIZE=${ZOOKEEPER_HEAP_SIZE:-"2G"}
+export JVM_HEAP_SIZE=${JVM_HEAP_SIZE:-"2G"}
 
 # myid is required for clusters
 if [[ -n "${ZOOKEEPER_SERVERS-}" ]]
@@ -28,9 +28,6 @@ dub template "/opt/zookeeper/tools/templates/java.env.template" "/opt/zookeeper/
 
 echo "===> Writing log4j.properties ..."
 dub template "/opt/zookeeper/tools/templates/log4j.properties.template" "/opt/zookeeper/conf/log4j.properties"
-
-echo "===> Writing tools-log4j.properties..."
-dub template "/opt/zookeeper/tools/templates/tools-log4j.properties.template" "/opt/zookeeper/conf/tools-log4j.properties"
 
 echo "===> Writing zoo.cfg ..."
 dub template "/opt/zookeeper/tools/templates/zoo.cfg.template" "/opt/zookeeper/conf/zoo.cfg"
