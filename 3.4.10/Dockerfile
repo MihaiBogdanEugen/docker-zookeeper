@@ -13,8 +13,8 @@ EXPOSE 2181 2888 3888
 
 RUN echo "===> Updating debian ....." && \
     apt-get -qq update && \
-    echo "===> Installing curl wget netcat python...." && \
-    apt-get install -y apt-transport-https curl wget netcat python=${PYTHON_VERSION} && \
+    echo "===> Installing gnupg2 curl wget netcat python...." && \
+    apt-get install -y apt-transport-https gnupg2 curl wget netcat python=${PYTHON_VERSION} && \
     echo "===> Installing python packages ..."  && \
     curl -fSL "https://bootstrap.pypa.io/get-pip.py" | python && \
     pip install --no-cache-dir --upgrade pip==${PYTHON_PIP_VERSION} && \
@@ -22,10 +22,15 @@ RUN echo "===> Updating debian ....." && \
     echo "===> Downloading zookeeper ..."  && \
     wget -q "http://www.apache.org/dist/zookeeper/$ZOOKEEPER_DIST/$ZOOKEEPER_DIST.tar.gz" && \
     echo "===> Verifying zookeeper ..."  && \
-    echo "${ZOOKEEPER_SHA256_SUM}" "$ZOOKEEPER_DIST.tar.gz" | sha256sum -c - && \
+    echo "${ZOOKEEPER_SHA256_SUM}" "${ZOOKEEPER_DIST}.tar.gz" | sha256sum -c - && \
+    wget -q "http://www.apache.org/dist/zookeeper/${ZOOKEEPER_DIST}/${ZOOKEEPER_DIST}.tar.gz.asc" && \
+    wget -q "http://apache.org/dist/zookeeper/KEYS" && \
+    export GNUPGHOME="$(mktemp -d)" && \
+    gpg --import KEYS && \
+    gpg --batch --verify "${ZOOKEEPER_DIST}.tar.gz.asc" "${ZOOKEEPER_DIST}.tar.gz" && \
     echo "===> Unpacking zookeeper ..."  && \
-    tar -xzf "$ZOOKEEPER_DIST.tar.gz" -C /opt && \
-    rm -r "$ZOOKEEPER_DIST.tar.gz" && \
+    tar -xzf "${ZOOKEEPER_DIST}.tar.gz" -C /opt && \
+    rm -r "$GNUPGHOME" "${ZOOKEEPER_DIST}.tar.gz" "${ZOOKEEPER_DIST}.tar.gz.asc" && \
     echo "===> Shortcut created for install folder ..."  && \
     ln -s /opt/$ZOOKEEPER_DIST /opt/zookeeper && \
     echo "===> Removing extra files ..."  && \
@@ -49,7 +54,7 @@ RUN echo "===> Updating debian ....." && \
             "/opt/zookeeper/$ZOOKEEPER_DIST.jar.asc" \
             "/opt/zookeeper/$ZOOKEEPER_DIST.jar.md5" \
             "/opt/zookeeper/$ZOOKEEPER_DIST.jar.sha1" && \
-    apt-get autoremove -y wget && \
+    apt-get autoremove -y gnupg2 wget && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p $ZOOKEEPER_DATA_DIR $ZOOKEEPER_DATA_LOG_DIR /usr/share/zookeeper /tmp/zookeeper /usr/etc/ /opt/zookeeper/tools /opt/zookeeper/tools/templates && \
     ln -s /opt/zookeeper/conf/ /usr/etc/zookeeper && \
