@@ -29,7 +29,7 @@ RUN echo "===> Updating debian ....." && \
     gpg --import KEYS && \
     gpg --batch --verify "${ZOOKEEPER_DIST}.tar.gz.asc" "${ZOOKEEPER_DIST}.tar.gz" && \
     echo "===> Unpacking zookeeper ..."  && \
-    tar -xzf "${ZOOKEEPER_DIST}.tar.gz" -C /opt && \
+    tar -xvf "${ZOOKEEPER_DIST}.tar.gz" -C /opt && \
     rm -rf "${GNUPGHOME}" "${ZOOKEEPER_DIST}.tar.gz" "${ZOOKEEPER_DIST}.tar.gz.asc" && \
     echo "===> Shortcut created for install folder ..."  && \
     ln -s /opt/$ZOOKEEPER_DIST /opt/zookeeper && \
