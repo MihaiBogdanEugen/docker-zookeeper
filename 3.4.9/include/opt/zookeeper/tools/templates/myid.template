@@ -1,5 +1,7 @@
-{% if env["IS_K8S"] %}
+{% if env["IS_KUBERNETES"] %}
 {{ env["HOSTNAME"].split("-")|last|int + 1 }}
+{% elif env["IS_MINIKUBE"] %}
+{{ env["HOSTNAME"]|last }}
 {% else %}
 {{ env["ZOOKEEPER_SERVER_ID"] }}
 {% endif %}
