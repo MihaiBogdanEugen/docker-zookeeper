@@ -2,6 +2,8 @@
 
 ### Supported tags and respective Dockerfile links: ###
 
+* ```3.4.9``` _\([3.4.9/Dockerfile]\)_
+[![](https://images.microbadger.com/badges/image/mbe1224/zookeeper:3.4.9.svg)](https://microbadger.com/images/mbe1224/zookeeper:3.4.9 "")
 * ```3.4.10``` _\([3.4.10/Dockerfile]\)_
 [![](https://images.microbadger.com/badges/image/mbe1224/zookeeper:3.4.10.svg)](https://microbadger.com/images/mbe1224/zookeeper:3.4.10 "")
 * ```3.4.11```, ```latest``` _\([3.4.11/Dockerfile]\)_
@@ -23,7 +25,7 @@
 
 Build the image
 ```shell
-docker build -t mbe1224/zookeeper /3.4.11/
+docker build -t mbe1224/zookeeper ./3.4.11/
 ```
 
 Run the container
@@ -61,9 +63,13 @@ In addition to these, the following environment variables are added for replicat
 | 3 | ZOOKEEPER\_SERVERS | Semicolon separated list of *host:port1:port2* where *port1* is used for follower connections, if the current node is the leader and *port2* is used for server connections during the leader election phase |
 | 4 | ZOOKEEPER\_WEIGHTS | Semicolon separated list of indexed weights used for forming quorums |
 
-Furthrmore, one can tweak the JVM heap size using the "JVM\_HEAP\_SIZE" environment variable, that has a default value of 2GB.
+Furthrmore, one can tweak the JVM heap size using the JVM\_HEAP\_SIZE environment variable, that has a default value of 2GB.
 
 For more information, check the [Apache ZooKeeper's Official Documentation].
+
+#### Kubernetes: ####
+
+For Kubernetes deployments, one needs to set the IS\_K8S environemnt variable to a non-null value. In this scenario, the ZOOKEEPER\_SERVER\_ID will be ignored (but it still needs to be set up).
 
 ### Dual licensed under: ###
 
@@ -75,6 +81,7 @@ For more information, check the [Apache ZooKeeper's Official Documentation].
    [configuration options from the official documentation]: <http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#sc_configuration>
    [Oracle JDK]: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>
    [ZooKeeper]: <https://zookeeper.apache.org/>   
+   [3.4.9/Dockerfile]: <https://github.com/MihaiBogdanEugen/docker-zookeeper/blob/master/3.4.9/Dockerfile>   
    [3.4.10/Dockerfile]: <https://github.com/MihaiBogdanEugen/docker-zookeeper/blob/master/3.4.10/Dockerfile>
    [3.4.11/Dockerfile]: <https://github.com/MihaiBogdanEugen/docker-zookeeper/blob/master/3.4.11/Dockerfile>
    [3.5.3-beta/Dockerfile]: <https://github.com/MihaiBogdanEugen/docker-zookeeper/blob/master/3.5.3-beta/Dockerfile>
