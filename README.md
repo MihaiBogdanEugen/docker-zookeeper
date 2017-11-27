@@ -69,7 +69,7 @@ For more information, check the [Apache ZooKeeper's Official Documentation].
 
 #### Kubernetes: ####
 
-For Kubernetes deployments using StatefulSets (or other replication objects), ZOOKEEPER\_SERVER\_ID can't be set up in advance. Therefore, one needs to set the IS\_KUBERNETES environemnt variable to a non-null value. In this scenario, ZooKeeper's ID (myid) will be generated using the value of the HOSTNAME environment variable. The ZOOKEEPER\_SERVER\_ID value will be ignored, but it still needs to be set up.
+For Kubernetes deployments using StatefulSets (or other replication objects), ZOOKEEPER\_SERVER\_ID can't be set up in advance. Therefore, one needs to set the IS\_KUBERNETES environemnt variable to a non-null value. In this scenario, ZooKeeper's ID (myid) will be generated using the value of the HOSTNAME environment variable.
 
 Nevertheless, if one uses Pods, than the usual setup can be used and the IS\_KUBERNETES environemnt variable must be ignored.
 

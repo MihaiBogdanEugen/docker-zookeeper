@@ -14,12 +14,17 @@ export JVM_HEAP_SIZE=${JVM_HEAP_SIZE:-"2G"}
 # myid is required for clusters
 if [[ -n "${ZOOKEEPER_SERVERS-}" ]]
 then
-  dub ensure ZOOKEEPER_SERVER_ID
+  if [[ -n "${IS_KUBERNETES-}" ]]
+  then
+    echo "Kubernetes setup"
+  else
+    dub ensure ZOOKEEPER_SERVER_ID
+  fi  
   export ZOOKEEPER_INIT_LIMIT=${ZOOKEEPER_INIT_LIMIT:-"10"}
   export ZOOKEEPER_SYNC_LIMIT=${ZOOKEEPER_SYNC_LIMIT:-"5"}
 fi
 
-if [[ -n "${ZOOKEEPER_SERVER_ID-}" ]]
+if [[ -n "${ZOOKEEPER_SERVER_ID-}" ]] || [[ -n "${IS_KUBERNETES-}" ]]
 then
   dub template "/opt/zookeeper/tools/templates/myid.template" "/var/lib/zookeeper/data/myid"
 fi
